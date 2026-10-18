@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudantes - Gestão Escolar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ===== Sidebar ===== -->
+    <nav class="sidebar sidebar-fixed position-fixed top-0 start-0 h-100 bg-white shadow-lg d-flex flex-column" style="width: var(--sidebar-width); z-index: 100;">
+        <div class="p-4 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+                <div class="sidebar-logo bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                    <i class="bi bi-school-fill text-primary fs-5"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-0">Escola Manager</h5>
+                    <small class="text-muted">Painel de Controle</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-nav flex-column flex-grow-1 py-3">
+            <a href="dashboard.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-speedometer2 fs-5"></i><span>Dashboard</span></a>
+            <a href="students.html" class="nav-item nav-link active d-flex align-items-center gap-3 px-4 py-2"><i class="bi bi-people fs-5"></i><span>Estudantes</span></a>
+            <a href="teachers.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-person-badge fs-5"></i><span>Professores</span></a>
+            <a href="classes.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-building fs-5"></i><span>Salas de Aula</span></a>
+            <a href="attendance.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-clipboard-check fs-5"></i><span>Presença</span></a>
+            <a href="grades.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-graph-up-arrow fs-5"></i><span>Notas</span></a>
+            <a href="reports.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-file-earmark-barrier fs-5"></i><span>Relatórios</span></a>
+            <a href="settings.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-gear fs-5"></i><span>Configurações</span></a>
+        </div>
+        <div class="border-top p-3">
+            <a href="index.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-danger"><i class="bi bi-box-arrow-right fs-5"></i><span>Sair</span></a>
+        </div>
+    </nav>
+
+    <!-- ===== Topbar ===== -->
+    <header class="topbar position-fixed top-0 start-0 end-0 bg-white shadow-sm d-flex align-items-center justify-content-between px-4" style="height: var(--topbar-height); margin-left: var(--sidebar-width); z-index: 99;">
+        <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-outline-secondary d-md-none" id="sidebarToggle"><i class="bi bi-list"></i></button>
+            <h5 class="mb-0 fw-semibold">Estudantes</h5>
+        </div>
+        <div class="d-flex align-items-center gap-4">
+            <div class="position-relative">
+                <input type="text" class="form-control" placeholder="Buscar estudantes..." style="width: 260px; border-radius: 50px;">
+                <i class="bi bi-search position-absolute top-50 translate-middle-y" style="left: 12px; color: #999;"></i>
+            </div>
+            <div class="dropdown" data-bs-auto-close="inside">
+                <a href="#" class="d-flex align-items-center text-dark text-decoration-none" data-bs-toggle="dropdown" role="button">
+                    <i class="bi bi-bell fs-5"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">2</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end notification-dropdown" style="width: 320px;">
+                    <div class="p-3 border-bottom"><h6 class="fw-bold mb-0">Notificações</h6></div>
+                    <div id="notificationDropdown" style="max-height: 300px; overflow-y: auto;"></div>
+                </div>
+            </div>
+            <div class="dropdown">
+                <div class="d-flex align-items-center" data-bs-toggle="dropdown" style="cursor: pointer;">
+                    <div class="avatar-placeholder">AD</div>
+                    <div class="ms-2 text-end">
+                        <strong class="d-block">Admin Sistema</strong>
+                        <small class="text-muted">Administrador</small>
+                    </div>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="settings.html">Meu Perfil</a></li>
+                    <li><a class="dropdown-item" href="settings.html">Configurações</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="index.html">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Main Content ===== -->
+    <main class="main-content">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h4 class="fw-bold mb-1">Lista de Estudantes</h4>
+                <p class="text-muted mb-0">Gerencie todos os estudantes da instituição</p>
+            </div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+                <i class="bi bi-plus-lg me-2"></i>Adicionar Estudante
+            </button>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <select class="form-select" style="width: auto;">
+                        <option>Todos</option>
+                        <option>9º Ano A</option>
+                        <option>9º Ano B</option>
+                        <option>8º Ano A</option>
+                    </select>
+                    <select class="form-select" style="width: auto;">
+                        <option>Status</option>
+                        <option>Ativo</option>
+                        <option>Inativo</option>
+                    </select>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-secondary"><i class="bi bi-download"></i> Exportar</button>
+                    <button class="btn btn-outline-secondary"><i class="bi bi-printer"></i> Imprimir</button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0" id="studentsTable">
+                        <thead class="table-light">
+                            <tr>
+                                <th><input type="checkbox" class="form-check-input" id="selectAll"></th>
+                                <th>Estudante</th>
+                                <th>Matrícula</th>
+                                <th>Email</th>
+                                <th>Série</th>
+                                <th>Data de Nascimento</th>
+                                <th>Status</th>
+                                <th class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input row-selector"></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="avatar-placeholder">AS</div>
+                                        Ana Silva
+                                    </div>
+                                </td>
+                                <td>2023001</td>
+                                <td>ana.silva@email.com</td>
+                                <td>9º Ano A</td>
+                                <td>12/05/2008</td>
+                                <td><span class="badge badge-ativo">Ativo</span></td>
+                                <td class="text-end">
+                                    <a href="#" class="text-primary"><i class="bi bi-eye"></i></a>
+                                    <a href="#" class="text-warning ms-2"><i class="bi bi-pencil"></i></a>
+                                    <a href="#" class="text-danger ms-2"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input row-selector"></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="avatar-placeholder">BC</div>
+                                        Bruno Costa
+                                    </div>
+                                </td>
+                                <td>2023002</td>
+                                <td>bruno.costa@email.com</td>
+                                <td>8º Ano B</td>
+                                <td>22/11/2009</td>
+                                <td><span class="badge badge-ativo">Ativo</span></td>
+                                <td class="text-end">
+                                    <a href="#" class="text-primary"><i class="bi bi-eye"></i></a>
+                                    <a href="#" class="text-warning ms-2"><i class="bi bi-pencil"></i></a>
+                                    <a href="#" class="text-danger ms-2"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input row-selector"></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="avatar-placeholder">CM</div>
+                                        Carla Mendes
+                                    </div>
+                                </td>
+                                <td>2023003</td>
+                                <td>carla.mendes@email.com</td>
+                                <td>9º Ano A</td>
+                                <td>03/03/2008</td>
+                                <td><span class="badge badge-ativo">Ativo</span></td>
+                                <td class="text-end">
+                                    <a href="#" class="text-primary"><i class="bi bi-eye"></i></a>
+                                    <a href="#" class="text-warning ms-2"><i class="bi bi-pencil"></i></a>
+                                    <a href="#" class="text-danger ms-2"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input row-selector"></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="avatar-placeholder">DS</div>
+                                        Daniel Souza
+                                    </div>
+                                </td>
+                                <td>2023004</td>
+                                <td>daniel.souza@email.com</td>
+                                <td>7º Ano C</td>
+                                <td>18/07/2010</td>
+                                <td><span class="badge badge-ausente">Inativo</span></td>
+                                <td class="text-end">
+                                    <a href="#" class="text-primary"><i class="bi bi-eye"></i></a>
+                                    <a href="#" class="text-warning ms-2"><i class="bi bi-pencil"></i></a>
+                                    <a href="#" class="text-danger ms-2"><i class="bi bi-trash"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <p class="text-muted mb-0">Mostrando 1-10 de 842 estudantes</p>
+            <nav>
+                <ul class="pagination mb-0">
+                    <li class="page-item disabled"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                </ul>
+            </nav>
+        </div>
+    </main>
+
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content border-0">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title fw-bold">Adicionar Novo Estudante</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="addStudentForm">
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nome Completo *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Matrícula *</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Data de Nascimento *</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email *</label>
+                                <input type="email" class="form-control" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Série *</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecione</option>
+                                    <option>9º Ano A</option>
+                                    <option>9º Ano B</option>
+                                    <option>8º Ano A</option>
+                                    <option>8º Ano B</option>
+                                    <option>7º Ano C</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Turma *</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecione</option>
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Endereço</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Telefone dos Responsáveis</label>
+                                <input type="tel" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Status *</label>
+                                <select class="form-select" required>
+                                    <option value="">Selecione</option>
+                                    <option value="ativo">Ativo</option>
+                                    <option value="inativo">Inativo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Salvar Estudante</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.getElementById('addStudentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Estudante adicionado com sucesso!');
+            this.reset();
+            bootstrap.Modal.getInstance(document.getElementById('addStudentModal')).hide();
+        });
+    </script>
+</body>
+</html>

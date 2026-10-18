@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Gestão Escolar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ===== Sidebar ===== -->
+    <nav class="sidebar sidebar-fixed position-fixed top-0 start-0 h-100 bg-white shadow-lg d-flex flex-column" style="width: var(--sidebar-width); z-index: 100;">
+        <div class="p-4 border-bottom">
+            <div class="d-flex align-items-center gap-3">
+                <div class="sidebar-logo bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 44px; height: 44px;">
+                    <i class="bi bi-school-fill text-primary fs-5"></i>
+                </div>
+                <div>
+                    <h5 class="fw-bold mb-0">Escola Manager</h5>
+                    <small class="text-muted">Painel de Controle</small>
+                </div>
+            </div>
+        </div>
+        <div class="nav-nav flex-column flex-grow-1 py-3">
+            <a href="dashboard.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-speedometer2 fs-5"></i><span>Dashboard</span></a>
+            <a href="students.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-people fs-5"></i><span>Estudantes</span></a>
+            <a href="teachers.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-person-badge fs-5"></i><span>Professores</span></a>
+            <a href="classes.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-building fs-5"></i><span>Salas de Aula</span></a>
+            <a href="attendance.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-clipboard-check fs-5"></i><span>Presença</span></a>
+            <a href="grades.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-graph-up-arrow fs-5"></i><span>Notas</span></a>
+            <a href="reports.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-dark"><i class="bi bi-file-earmark-barrier fs-5"></i><span>Relatórios</span></a>
+            <a href="settings.html" class="nav-item nav-link active d-flex align-items-center gap-3 px-4 py-2"><i class="bi bi-gear fs-5"></i><span>Configurações</span></a>
+        </div>
+        <div class="border-top p-3">
+            <a href="index.html" class="nav-item nav-link d-flex align-items-center gap-3 px-4 py-2 text-danger"><i class="bi bi-box-arrow-right fs-5"></i><span>Sair</span></a>
+        </div>
+    </nav>
+
+    <!-- ===== Topbar ===== -->
+    <header class="topbar position-fixed top-0 start-0 end-0 bg-white shadow-sm d-flex align-items-center justify-content-between px-4" style="height: var(--topbar-height); margin-left: var(--sidebar-width); z-index: 99;">
+        <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-outline-secondary d-md-none" id="sidebarToggle"><i class="bi bi-list"></i></button>
+            <h5 class="mb-0 fw-semibold">Configurações</h5>
+        </div>
+        <div class="d-flex align-items-center gap-4">
+            <button class="btn btn-primary"><i class="bi bi-save me-2"></i>Salvar Alterações</button>
+            <!-- Notifications -->
+            <div class="dropdown" data-bs-auto-close="inside">
+                <a href="#" class="d-flex align-items-center text-dark text-decoration-none" data-bs-toggle="dropdown" role="button">
+                    <div class="position-relative">
+                        <i class="bi bi-bell fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">2</span>
+                    </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end notification-dropdown" style="width: 320px;">
+                    <div class="p-3 border-bottom"><h6 class="fw-bold mb-0">Notificações</h6></div>
+                    <div id="notificationDropdown" style="max-height: 300px; overflow-y: auto;">
+                </div>
+            </div>
+            <!-- User Profile -->
+            <div class="dropdown">
+                <div class="d-flex align-items-center" data-bs-toggle="dropdown" style="cursor: pointer;">
+                    <div class="avatar-placeholder">AD</div>
+                    <div class="ms-2 text-end">
+                        <strong class="d-block">Admin Sistema</strong>
+                        <small class="text-muted">Administrador</small>
+                    </div>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="settings.html">Meu Perfil</a></li>
+                    <li><a class="dropdown-item" href="settings.html">Configurações</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="index.html">Sair</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Main Content ===== -->
+    <main class="main-content">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="list-group list-group-flush mb-0">
+                    <a href="#profile" class="list-group-item list-group-item-action active" data-bs-toggle="tab">Perfil da Escola</a>
+                    <a href="#academic" class="list-group-item list-group-item-action" data-bs-toggle="tab">Ano Letivo</a>
+                    <a href="#notifications" class="list-group-item list-group-item-action" data-bs-toggle="tab">Notificações</a>
+                    <a href="#security" class="list-group-item list-group-item-action" data-bs-toggle="tab">Segurança</a>
+                    <a href="#appearance" class="list-group-item list-group-item-action" data-bs-toggle="tab">Aparência</a>
+                    <a href="#integrations" class="list-group-item list-group-item-action" data-bs-toggle="tab">Integrações</a>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="tab-content">
+                    <!-- Profile Settings -->
+                    <div class="tab-pane fade show active" id="profile">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-white border-0 py-3">
+                                <h6 class="fw-semibold mb-0">Informações da Escola</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nome da Escola</label>
+                                        <input type="text" class="form-control" value="Colégio Estadual São José">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Inscrição</label>
+                                        <input type="text" class="form-control" value="123456789012">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Endereço</label>
+                                        <input type="text" class="form-control" value="Rua das Flores, 123 - Centro">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Cidade</label>
+                                        <input type="text" class="form-control" value="São Paulo">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Estado</label>
+                                        <select class="form-select">
+                                            <option>São Paulo</option>
+                                            <option>Rio de Janeiro</option>
+                                            <option>Minas Gerais</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">CEP</label>
+                                        <input type="text" class="form-control" value="01234-567">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" value="contato@colegiogestor.edu.br">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Telefone</label>
+                                        <input type="tel" class="form-control" value="(11) 3456-7890">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Diretor</label>
+                                        <input type="text" class="form-control" value="Prof. Maria Oliveira">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nível de Ensino</label>
+                                        <select class="form-select">
+                                            <option>Educação Fundamental</option>
+                                            <option>Educação Média</option>
+                                            <option>Educação Infantil</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0 py-3">
+                                <h6 class="fw-semibold mb-0">Informações do Administrador</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nome</label>
+                                        <input type="text" class="form-control" value="Admin Sistema">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" value="admin@escola.edu.br">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Senha Atual</label>
+                                        <input type="password" class="form-control" placeholder="Digite a senha atual">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nova Senha</label>
+                                        <input type="password" class="form-control" placeholder="Digite a nova senha">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Settings -->
+                    <div class="tab-pane fade" id="academic">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0 py-3">
+                                <h6 class="fw-semibold mb-0">Configurações Acadêmicas</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Ano Letivo</label>
+                                        <input type="number" class="form-control" value="2024">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Período</label>
+                                        <select class="form-select">
+                                            <option>Complete</option>
+                                            <option>1º Semestre</option>
+                                            <option>2º Semestre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Bimestres</label>
+                                        <select class="form-select">
+                                            <option>4 Bimestres</option>
+                                            <option>3 Trimestres</option>
+                                            <option>2 Semestres</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nota Mínima para Aprovação</label>
+                                        <input type="number" class="form-control" value="6.0" step="0.1">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Carga Horária Anual (horas)</label>
+                                        <input type="number" class="form-control" value="800">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check mt-2">
+                                            <input type="checkbox" class="form-check-input" checked>
+                                            <label class="form-check-label">Ativar lançamento de notas online</label>
+                                        </div>
+                                        <div class="form-check mt-2">
+                                            <input type="checkbox" class="form-check-input">
+                                            <label class="form-check-label">Permitir recuperação por substituição</label>
+                                        </div>
+                                        <div class="form-check mt-2">
+                                            <input type="checkbox" class="form-check-input" checked>
+                                            <label class="form-check-label">Registrar presença por QR Code</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Settings -->
+                    <div class="tab-pane fade" id="notifications">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0 py-3">
+                                <h6 class="fw-semibold mb-0">Configurações de Notificações</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Notificações por Email</strong>
+                                                <p class="text-muted small mb-0">Receber notificações importantes por email</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input type="checkbox" class="form-check-input" checked>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Alertas de Ausência</strong>
+                                                <p class="text-muted small mb-0">Notificar quando estudante faltar 3+ vezes</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input type="checkbox" class="form-check-input" checked>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Notas Baixas</strong>
+                                                <p class="text-muted small mb-0">Alertar quando notas caírem abaixo de 6.0</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input type="checkbox" class="form-check-input" checked>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Relatórios Mensais</strong>
+                                                <p class="text-muted small mb-0">Enviar relatórios de desempenho por email</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input type="checkbox" class="form-check-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Security Settings -->
+                    <div class="tab-pane fade" id="security">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0 py-3">
+                                <h6 class="fw-semibold mb-0">Segurança</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Autenticação de Dois Fatores</strong>
+                                                <p class="text-muted small mb-0">Adicione uma camada extra de segurança</p>
+                                            </div>
+                                            <a href="#" class="btn btn-sm btn-outline-primary">Ativar</a>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Sessão Automática</strong>
+                                                <p class="text-muted small mb-0">Manter conectado por 30 dias</p>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <input type="checkbox" class="form-check-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <strong>Histórico de Login</strong>
+                                                <p class="text-muted small mb-0">Último acesso: Hoje, 10:30</p>
+                                            </div>
+                                            <a href="#" class="btn btn-sm btn-outline-secondary">Ver Histórico</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appearance Settings -->
+                    <div class="tab-pane fade" id="appearance">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0 py-3">
+                                <h6 class="fw-semibold mb-0">Aparência</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Tema</label>
+                                        <select class="form-select">
+                                            <option>Luz (Padrão)</option>
+                                            <option>Escuro</option>
+                                            <option>Sistema</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Cor Primária</label>
+                                        <select class="form-select">
+                                            <option>Azul (Padrão)</option>
+                                            <option>Verde</option>
+                                            <option>Púrpura</option>
+                                            <option>Laranja</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Idioma</label>
+                                        <select class="form-select" style="width: auto;">
+                                            <option>Português (Brasil)</option>
+                                            <option>English (US)</option>
+                                            <option>Español</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Integrations -->
+                    <div class="tab-pane fade" id="integrations">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white border-0 py-3">
+                                <h6 class="fw-semibold mb-0">Integrações</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <i class="bi bi-google fs-4 text-danger"></i>
+                                                <div>
+                                                    <strong>Google Classroom</strong>
+                                                    <p class="text-muted small mb-0">Sincronizar aulas e tarefas</p>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary">Conectar</button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <i class="bi bi-microsoft fs-4" style="color: #0078d4;"></i>
+                                                <div>
+                                                    <strong>Microsoft Teams</strong>
+                                                    <p class="text-muted small mb-0">Integração com aulas virtuais</p>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary">Conectar</button>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 py-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <i class="bi bi-whatsapp fs-4 text-success"></i>
+                                                <div>
+                                                    <strong>WhatsApp Business</strong>
+                                                    <p class="text-muted small mb-0">Notificações para responsáveis</p>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary">Conectar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
